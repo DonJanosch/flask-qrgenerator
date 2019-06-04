@@ -7,12 +7,6 @@ input_form = f'<h1>String to QR-Code</h1><p>By Jan Macenka</p><br><h2>Input some
 
 app =Flask(__name__)
 
-def serve_pil_image(pil_img):
-    img_io = BytesIO()
-    pil_img.save(img_io, 'JPEG', quality=70)
-    img_io.seek(0)
-    return send_file(img_io, mimetype='image/png')
-
 @app.route('/', methods=['POST','GET'])
 def index():
     if request.method == 'GET':
@@ -24,7 +18,9 @@ def index():
         qr.add_data(input_data)
         qr.make(fit=True)
         img = qr.make_image(fill_color="black",back_color="white")#(fill_color='#66e100',back_color="white") #use planemos colors => impacts scanner results negativgely, deactivated.
-        return serve_pil_image(img)
+        img.save(imgIO, 'PNG', quality=70)
+        imgIO.seek(0)
+        return send_file(imgIO, mimetype='image/png')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=8080,debug=False)
