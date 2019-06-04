@@ -1,7 +1,5 @@
-from flask import Flask, request, redirect, url_for, send_from_directory
-
-import qrcode, os
-from datetime import datetime
+from flask import Flask, request, send_from_directory
+import qrcode, os, datetime
 
 results_dir = './Result_Data/'
 form_name = 'data'
@@ -14,14 +12,9 @@ def index():
     if request.method == 'GET':
         return input_form
     elif request.method == 'POST':
-        timestamp = datetime.now().strftime('%Y%m%d-%H_%M_%S')
+        timestamp = datetime.datetime.now().strftime('%Y%m%d-%H_%M_%S')
         input_data = request.form[form_name]
-        qr = qrcode.QRCode(
-        version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_L,
-        box_size=10,
-        border=4,
-        )
+        qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4)
         qr.add_data(input_data)
         qr.make(fit=True)
         img = qr.make_image(fill_color="black", back_color="white")
@@ -31,4 +24,4 @@ def index():
         return send_from_directory(results_dir, file_name)#, as_attachment=True)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=8080,debug=True)
+    app.run(host='0.0.0.0',port=8080,debug=False)
