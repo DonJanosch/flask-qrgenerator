@@ -5,7 +5,7 @@ from datetime import datetime
 
 results_dir = './Result_Data/'
 form_name = 'data'
-input_form = f'<h1>String to QR-Code</h1><br><p>Input some text and hit submit:</p><form action="/" method="POST"><input name="{form_name}"><input type="submit"></form>'
+input_form = f'<h1>String to QR-Code</h1><br><h2>By Jan Macenka</h2><br><p>Input some text and hit submit:</p><form action="/" method="POST"><input name="{form_name}"><input type="submit"></form>'
 
 app =Flask(__name__, static_folder=results_dir)
 
