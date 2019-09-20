@@ -10,7 +10,8 @@ INPUT_FORM = f'''
 <form action="/" method="POST">
 <input name="{DATA_FIELD}">
 <input type="submit">
-</form>'''
+</form>
+<p>The entire repo has 49 sloc</p>'''
 
 app = Flask(__name__)
 
